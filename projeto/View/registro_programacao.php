@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	require "conexao.php";
-	require "prog_service.php";
+	require "../Model/conexao.php";
+	require "../Model/prog_service.php";
 
 	if(isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'SIM'){
 
@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
 	<!-- Estilo customizado -->
-	<link rel="stylesheet" type="text/css" href="estilo.css">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 
 	<title>Sistema</title>
 
@@ -64,7 +64,7 @@
 				<div class="row">
 					<div class="col-md-12 text-white align-self-right">
 						<h3 class="mt-5">Alterar Dados</h3>
-						<form class="mt-3" action="prog_controller.php" method="post">
+						<form class="mt-3" action="../Controller/prog_controller.php" method="post">
 							<?php if(isset($prog) && $prog){ ?>
 								<input class="form-control w-50" type="hidden" name="idProg" value="<?php echo $prog->id ?>">
 								<input type="hidden" name="acao" value="<?php echo $acao ?>">

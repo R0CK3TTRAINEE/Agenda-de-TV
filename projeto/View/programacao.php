@@ -1,58 +1,18 @@
 <?php
-
   session_start();
+  require "../Model/conexao.php";
+  require "../Model/prog_service.php";
 
-  require "conexao.php";
-  require "prog_service.php";
+  if(isset($_SESSION['autenticado']) && $_SESSION['autenticado'] == 'SIM'){
+    $conexao = new Conexao();
+    $progService = new ProgService($conexao);
 
-  //print_r($_POST);
-
-  date_default_timezone_set ("America/Sao_Paulo");
-
-  $diaDaSemana = strftime("%A", strtotime(date("Y-m-d")));
-  $hora = date("H") + 1;
-  $hora .= ':00';
-
-  if($_POST){
-    $diaDaSemana = strftime("%A", strtotime($_POST['data'])) ;
-    $hora = $_POST['hora'] + 1;
-    $hora .= ':00';
+    $listaProg = $progService->getProg();
+  }else{
+    header('Location: home.php');
   }
 
-  switch ($diaDaSemana) {
-    case 'Monday':
-      $diaDaSemana = 'SEGUNDA';
-      break;
-
-    case 'Tuesday':
-      $diaDaSemana = 'TERCA';
-      break;
-
-    case 'Wednesday':
-      $diaDaSemana = 'QUARTA';
-      break;
-
-    case 'Thursday':
-      $diaDaSemana = 'QUINTA';
-      break;
-
-    case 'Friday':
-      $diaDaSemana = 'SEXTA';
-      break;
-
-    case 'Saturday':
-      $diaDaSemana = 'SABADO';
-      break;
-
-    case 'Sunday':
-      $diaDaSemana = 'DOMINGO';
-      break;
-  }
-
-  $conexao = new Conexao();
-  $progService = new ProgService($conexao);
-
-  $proximaProg = $progService->pesquisarProg($diaDaSemana,$hora);
+    
 
 ?>
 <html lang="pt-br">
@@ -68,9 +28,10 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
     <!-- Estilo customizado -->
-    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
 
     <title>Sistema</title>
+
   </head>
 
   <body>
@@ -97,48 +58,39 @@
 
     <section>
       <div class="container mt-5">
-
-        
-        <div class="row">
-          <div class="col-md-6">
-            <h4 class="text-light">Programação Seguinte</h4>
-          </div>
-
-          
-          <div class="col-md-6">
-            <form class="mb-3" action="home.php" method="post">
-              <input type="date" name="data" required>
-
-              <input type="number" name="hora" placeholder="hora" required>
-
-              <input type="submit" value="Pesquisar">
-            </form>
-          </div>
-
-        </div>
-          
         
 
         <div class="row">
           <div class="col-md-12">
+            <h4 class="text-white">Programação Semanal</h4>
+            <a href="registro_programacao.php?acao=salvar" class="btn btn-success mt-3">Novo +</a>
             <table class="table table-dark table-hover table-striped">
               <thead>
                 <tr>
                   <th>Próximo programa</th>
                   <th>Hora</th>
+                  <th>Dia</th>
+                  <th>Ação</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td><?php echo $proximaProg->nome ?></td>
-                  <td><?php echo $proximaProg->inicio ?> às <?php echo $proximaProg->fim ?></td>
-                </tr>
+                <?php foreach ($listaProg as $prog){?>
+                  <tr>
+                    <td><?php echo $prog->NOME_PROG ?></td>
+                    <td><?php echo $prog->HR_INICIO ?> às <?php echo $prog->HR_FIM ?></td>
+                    <td><?php echo $prog->DIA_PROG ?></td>
+                    <td>
+                      <i class="fas fa-trash-alt fa-lg text-danger"></i>
+                      <a href="registro_programacao.php?acao=editar&id=<?php echo $prog->COD_PROG ?>"><i class="fas fa-edit fa-lg text-info"></i></a>
+                    </td>
+                  </tr>
+                <?php } ?>
               </tbody>
             </table>
           </div>
         </div>
-
+        
       </div>
     </section>
   </body>

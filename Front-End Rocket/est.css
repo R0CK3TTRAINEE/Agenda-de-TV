@@ -5,8 +5,7 @@ body, html {
 
 body {
 	font-size: 100%;
-	background: #4f51c0 85.61%;
-	background: linear-gradient(68.1deg, #2F2325 16.6%, #4f51c0 85.61%);
+	background: #4f51c0;
 }
 
 .display-4 {

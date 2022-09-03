@@ -1,3 +1,8 @@
+<?php 
+  session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -12,7 +17,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
     <!-- Estilo customizado -->
-    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <link rel="stylesheet" type="text/css" href="View/css/estilo.css">
 
     <title>Sistema</title>
   </head>
@@ -23,9 +28,15 @@
       <nav class="navbar">
         <div class="container">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="login.php" class="nav-link text-white">Admin</a>
-            </li>
+            <?php if(!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] == 'NAO'){ ?>
+              <li class="nav-item">
+                <a href="View/login.php" class="nav-link text-white">Admin</a>
+              </li>
+            <?php }else if($_SESSION['autenticado'] == 'SIM'){ ?>
+              <li class="nav-item">
+                <span class="nav-link text-white">Bem vindo <?php echo $_SESSION['login'] ?></span>
+              </li>
+            <?php } ?>
           </ul>
         </div>
       </nav>
@@ -39,14 +50,14 @@
             <div class="align-self-center">
               <h1 class="display-4">Sistema</h1>
 
-              <p>Sua programação de TV em um só lugar.</p>
+              <p class="par">Sua programação de TV em um só lugar.</p>
 
-              <a href="home.php" class="btn btn-light mt-5">Iniciar</a>
+              <a href="View/home.php" class="btn btn-light mt-5">Iniciar</a>
             </div>
           </div>
 
           <div class="col-md-6 h-100">
-            <img class="h-100 d-none d-md-block" src="rocket.jpg">
+            <img class="h-100 d-none d-md-block" src="View/img/rocket.jpg">
           </div>
         </div>
       </div>

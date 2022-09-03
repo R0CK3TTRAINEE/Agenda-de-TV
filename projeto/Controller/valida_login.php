@@ -1,7 +1,7 @@
 <?php 
 	
-	require "conexao.php";
-	require "admin_service.php";
+	require "../Model/conexao.php";
+	require "../Model/admin_service.php";
 
 	session_start();
 
@@ -21,12 +21,12 @@
 
 		$_SESSION['autenticado'] = 'SIM';
 		$_SESSION['login'] = $admin_login;
-		header('Location: programacao.php');
+		header('Location: ../View/programacao.php');
 
 	}else{
 
 		$_SESSION['autenticado'] = 'NAO';
-		header('Location: login.php?login=erro');
+		header('Location: ../View/login.php?login=erro');
 	}
 
 ?>

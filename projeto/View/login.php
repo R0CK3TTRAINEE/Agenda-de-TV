@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
     <!-- Estilo customizado -->
-    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
 
     <title>Sistema</title>
   </head>
@@ -28,7 +28,7 @@
             </div>
             <div class="card-body">
 
-              <form action="valida_login.php" method="post">
+              <form action="../Controller/valida_login.php" method="post">
 
                 <?php if(isset($_GET['login']) && $_GET['login'] == 'erro'){ ?>
                   <div class="form-group">

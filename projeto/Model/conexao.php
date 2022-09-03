@@ -4,7 +4,7 @@
 		private $host = 'localhost';
 		private $dbname = 'rocket';
 		private $user = 'root';
-		private $password = 'root';
+		private $password = '';
 
 		public function conect(){
 

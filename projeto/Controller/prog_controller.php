@@ -1,7 +1,7 @@
 <?php
 
-	require "conexao.php";
-  	require "prog_service.php";
+	require "../Model/conexao.php";
+  	require "../Model/prog_service.php";
 
 	$acao = $_POST['acao'];
 	
@@ -22,6 +22,6 @@
 		$progService->editar($id, $nome, $inicio, $fim);
 	}
 
-	header('Location: programacao.php');
+	header('Location: ../View/programacao.php');
 
 ?>
